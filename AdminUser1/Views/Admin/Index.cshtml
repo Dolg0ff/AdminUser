@@ -1,0 +1,37 @@
+﻿@model AdminUser1.Models.UserModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>TestSend</h1>
+
+<h4>SimpleUserModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <table>
+            <thead>
+                <tr>
+                    <th>login</th><th>Email</th><th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (KeyValuePair<string, ApplicationUserModel> element in Model.Users)
+                {
+                    <partial name="IUPartial" model=element.Value />
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@section UA {
+    <script type="text/javascript" src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+}
+
+

@@ -13,6 +13,21 @@ namespace AdminUser1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        [HttpGet]
+        public ActionResult UM()
+        {
+            SimpleUserModel m = new SimpleUserModel { Id = Guid.NewGuid().ToString(), Email = "Test", Counter = 1 };
+            return View(m);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult UM([Bind(include:"Email,Counter")] SimpleUserModel m)
+        {
+            m.Counter++;
+            return PartialView("UMPartial", m);
+        }
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

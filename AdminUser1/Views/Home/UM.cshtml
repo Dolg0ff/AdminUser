@@ -1,0 +1,27 @@
+﻿@model AdminUser1.Models.SimpleUserModel
+
+@{
+    ViewData["Title"] = "TestSend";
+}
+
+<h1>TestSend</h1>
+
+<h4>SimpleUserModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4" id="res">
+        <partial name="UMPartial" model=Model>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@section UA {
+    <script type="text/javascript" src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+}
