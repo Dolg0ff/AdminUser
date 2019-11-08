@@ -1,0 +1,56 @@
+﻿@model ApplicationUserModel
+
+@{
+    List<IdentityRole> restroles = new List<IdentityRole>();
+    restroles = Model.AvailableRoles;
+    Model.Roles.ForEach(x => restroles.Remove(x));
+ }
+
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Add</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input asp-for="Email" value="@Model.Email" />
+            </td>
+            <td>
+                <table>
+                    <tbody id="res">
+                        @foreach(IdentityRole role in Model.Roles)
+                        {
+                            <tr>
+                                <td>
+                                    <form asp-action="RemoveFromRole" asp-controller="Role" method="post" data-ajax="true" data-ajax-method="post" data-ajax-update="#dyncontainer">
+                                        <input type="hidden" name="RoleId" value="@role.Id" />
+                                        <input type="hidden" name="UserId" value="@Model.Id" />
+                                        @role.Name
+                                        <input class="form-control" type="submit" value="X"/>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <form asp-action="AddToRole" asp-controller="Role" method="post" data-ajax="true" data-ajax-method="post" data-ajax-update="#dyncontainer">
+                    <input type="hidden" name="userId" value="@Model.Id" />
+                    <select class="form-control" name="Role">
+                        <option>Add Role</option>
+                        @foreach(IdentityRole rl in restroles)
+                        {
+                            <option value="@rl.Id">@rl.Name</option>
+                        }
+                    </select>
+                    <input class="form-control" type="submit" />
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>

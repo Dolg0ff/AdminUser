@@ -1,0 +1,23 @@
+﻿@model List<IdentityRole>
+<table>
+    <thead>
+        <tr>
+            <th>Role Id</th>
+            <th>Role name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (IdentityRole role in Model)
+        {
+        <tr>
+            <td>
+                @role.Id
+            </td>
+            <td>
+                @role.Name
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="CreateRole">Create</a>

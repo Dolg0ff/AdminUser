@@ -6,6 +6,7 @@ using AdminUser1.Data;
 using AdminUser1.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminUser1.Controllers
 {
@@ -31,6 +32,23 @@ namespace AdminUser1.Controllers
                 Roles = rls
             };
             return View(m);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserEdit(string id)
+        {
+            ApplicationUserModel u = await _context.GetUserWithRoles(id,_um);
+            List<IdentityRole> rls = _context.Roles.AsNoTracking().ToList();
+            u.AvailableRoles = rls;
+
+            return PartialView(u);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UserEdit(ApplicationUserModel user)
+        {
+            return PartialView();
         }
     }
 }

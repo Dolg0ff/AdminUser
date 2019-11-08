@@ -44,7 +44,7 @@ namespace AdminUser1
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
 
-            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); 
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
