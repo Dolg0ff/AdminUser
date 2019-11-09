@@ -180,3 +180,7 @@ C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\Razor\V
 C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\Razor\Views\Role\Index.cshtml.g.cs
 C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\Razor\Views\Role\CreateRole.cshtml.g.cs
 C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\AdminUser1.csprojAssemblyReference.cache
+C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\Razor\Views\User\Index.cshtml.g.cs
+C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\Razor\Views\User\IUPartial.cshtml.g.cs
+C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\Razor\Views\User\Edit.cshtml.g.cs
+C:\Users\Юрий\Projects\AdminUser1\AdminUser1\obj\Debug\netcoreapp3.0\Razor\Views\User\Create.cshtml.g.cs

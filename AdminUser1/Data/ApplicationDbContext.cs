@@ -37,7 +37,7 @@ namespace AdminUser1.Data
         }
 
         public async Task<ApplicationUserModel> GetUserWithRoles(string id, UserManager<IdentityUser> _um)
-        {
+         {
             ApplicationUserModel user = new ApplicationUserModel(this.Users.Where(c => c.Id == id).Single());
             user.Roles = await GetUserRoles(_um, user);
 

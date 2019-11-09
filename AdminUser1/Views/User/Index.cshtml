@@ -3,23 +3,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Управление ролями</h1>
+<h1>Управление пользователями</h1>
 
 <style>
-    .form-control 
-    {
-        display:inline-block;
-        width:unset;
+    .form-control {
+        display: inline-block;
+        width: unset;
     }
 </style>
 
 <hr />
+<a asp-action="Create">Добавить пользователя</a>
 <div class="row">
     <div class="col-md-4" id="dyncontainer">
         <table>
             <thead>
                 <tr>
-                    <th>login</th><th>Email</th><th>Role</th>
+                    <th>login</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>

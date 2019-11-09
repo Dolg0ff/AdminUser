@@ -17,7 +17,7 @@
     <tbody>
         <tr>
             <td>
-                <input asp-for="Email" value="@Model.Email" />
+                <input class="form-control" asp-for="Email" value="@Model.Email" />
             </td>
             <td>
                 <table>
@@ -30,7 +30,7 @@
                                         <input type="hidden" name="RoleId" value="@role.Id" />
                                         <input type="hidden" name="UserId" value="@Model.Id" />
                                         @role.Name
-                                        <input class="form-control" type="submit" value="X"/>
+                                        <input class="btn btn-sm btn-danger" type="submit" value="X"/>
                                     </form>
                                 </td>
                             </tr>
@@ -48,9 +48,10 @@
                             <option value="@rl.Id">@rl.Name</option>
                         }
                     </select>
-                    <input class="form-control" type="submit" />
+                    <input class="btn btn-sm btn-primary" type="submit" />
                 </form>
             </td>
         </tr>
     </tbody>
 </table>
+<a class="btn btn-sm btn-primary" asp-action="Index">Список пользователей</a>
