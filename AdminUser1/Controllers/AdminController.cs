@@ -31,7 +31,7 @@ namespace AdminUser1.Controllers
                 Users = await _context.GetUsersAndRoles(_um, _rm),
                 Roles = rls
             };
-            return View(m);
+            return PartialView(m);
         }
 
         [HttpGet]
