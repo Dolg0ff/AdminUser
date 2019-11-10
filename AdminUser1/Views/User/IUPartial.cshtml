@@ -1,7 +1,8 @@
 ﻿@model ApplicationUserModel
 
 <tr>
-    <td>@Model.UserName</td>
+    <td>@Model.NickName</td>
+    <td>@Model.FirstName</td>
     <td>@Model.Email</td>
     <td>
         <form asp-action="Delete" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#dyncont">

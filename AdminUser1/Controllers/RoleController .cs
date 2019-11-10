@@ -46,7 +46,7 @@ namespace AdminUser1.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public async Task<IActionResult> AddToRole(string userId, string Role )
+        public async Task<IActionResult> AddToRole(string userId, string Role)
         {
             int res = await _context.AddToRole(userId, Role);
             return RedirectToAction("UserEdit", "Admin", new { id = userId });

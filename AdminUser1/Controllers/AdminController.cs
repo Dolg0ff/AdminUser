@@ -13,7 +13,7 @@ using TGRSite.Classes;
 
 namespace AdminUser1.Controllers
 {
-   // [Authorize(Roles ="Admin")]
+    // [Authorize(Roles ="Admin")]
     [Auth(roles: "Admin")]
     public class AdminController : Controller
     {
@@ -42,7 +42,7 @@ namespace AdminUser1.Controllers
         [HttpGet]
         public async Task<IActionResult> UserEdit(string id)
         {
-            ApplicationUserModel u = await _context.GetUserWithRoles(id,_um);
+            ApplicationUserModel u = await _context.GetUserWithRoles(id, _um);
             List<IdentityRole> rls = _context.Roles.AsNoTracking().ToList();
             u.AvailableRoles = rls;
 

@@ -10,12 +10,22 @@
     <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h4>Create a new account.</h4>
-            <hr /> 
+            <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Input.NickName"></label><br />
+                <input asp-for="Input.NickName" class="form-control"/>
+                <span asp-validation-for="Input.NickName" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Input.FirstName"></label><br />
+                <input asp-for="Input.FirstName" class="form-control"/>
+                <span asp-validation-for="Input.FirstName"  class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>

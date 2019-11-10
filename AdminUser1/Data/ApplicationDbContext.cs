@@ -55,7 +55,7 @@ namespace AdminUser1.Data
             Dictionary<String, ApplicationUserModel> nusers = new Dictionary<string, ApplicationUserModel>();
             foreach (KeyValuePair<string, ApplicationUser> kuser in uls)
             {
-                ApplicationUserModel user = new ApplicationUserModel(kuser.Value);               
+                ApplicationUserModel user = new ApplicationUserModel(kuser.Value);
                 user.Roles = await GetUserRoles(_um, user);
                 nusers.Add(user.Id, user);
             }
@@ -69,7 +69,7 @@ namespace AdminUser1.Data
         }
 
         public async Task<ApplicationUserModel> GetUserWithRoles(string id, UserManager<ApplicationUser> _um)
-         {
+        {
             ApplicationUserModel user = new ApplicationUserModel(this.Users.Where(c => c.Id == id).Single());
             user.Roles = await GetUserRoles(_um, user);
 

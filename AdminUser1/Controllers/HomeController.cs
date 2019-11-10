@@ -22,7 +22,7 @@ namespace AdminUser1.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult UM([Bind(include:"Email,Counter")] SimpleUserModel m)
+        public IActionResult UM([Bind(include: "Email,Counter")] SimpleUserModel m)
         {
             m.Counter++;
             return PartialView("UMPartial", m);

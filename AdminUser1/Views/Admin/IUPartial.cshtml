@@ -1,13 +1,13 @@
 ﻿@model ApplicationUserModel
 
-    <tr>
-        <td>@Model.UserName</td>
-        <td>@Model.Email</td>
-        <td>@(String.Join(',', Model.Roles.ToList()))</td>
-        <td>
-            <form asp-action="UserEdit" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#dyncontainer">
-                <input type="hidden" name="id" value="@Model.Id" />
-                <input type="submit" value="Добавить/изменить роль" class="btn btn-primary" />
-            </form>
-        </td>
-    </tr>
+<tr>
+    <td>@Model.UserName</td>
+    <td>@Model.Email</td>
+    <td>@(String.Join(',', Model.Roles.ToList()))</td>
+    <td>
+        <form asp-action="UserEdit" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#dyncontainer">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" value="Добавить/изменить роль" class="btn btn-primary" />
+        </form>
+    </td>
+</tr>

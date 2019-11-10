@@ -46,7 +46,7 @@ namespace AdminUser1.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email };
+                ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email, NickName = model.NickName, FirstName = model.FirstName };
                 var result = await _um.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -81,7 +81,7 @@ namespace AdminUser1.Controllers
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email };
+            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, NickName = user.NickName, FirstName = user.FirstName };
             return PartialView(model);
         }
 
@@ -93,6 +93,7 @@ namespace AdminUser1.Controllers
                 ApplicationUser user = await _um.FindByIdAsync(model.Id);
                 if (user != null)
                 {
+                    user.FirstName = model.FirstName;
                     user.Email = model.Email;
                     user.UserName = model.Email;
 

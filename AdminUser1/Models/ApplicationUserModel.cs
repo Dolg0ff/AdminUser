@@ -17,12 +17,14 @@ namespace AdminUser1.Models
             AvailableRoles = new List<IdentityRole>();
         }
 
-        public ApplicationUserModel(IdentityUser IU):this()
+        public ApplicationUserModel(ApplicationUser IU) : this()
         {
+            NickName = IU.NickName;
+            FirstName = IU.FirstName;
             Id = IU.Id;
             UserName = IU.UserName;
             Email = IU.Email;
         }
     }
-    
+
 }
