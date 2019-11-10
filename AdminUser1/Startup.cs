@@ -30,10 +30,11 @@ namespace AdminUser1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEmailSender, EmailSender>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
 
                 //options.SignIn.RequireConfirmedAccount = false;
@@ -44,16 +45,17 @@ namespace AdminUser1
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
 
-            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); 
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); 
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +84,71 @@ namespace AdminUser1
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            try
+            {
+                DBInit.CreateDefaultRolesAndUser(roleManager, userManager);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+    }
+
+    public static class DBInit
+    {
+        public static void CreateDefaultRolesAndUser(RoleManager<IdentityRole> RoleManager, UserManager<ApplicationUser> UserManager, String email = null, String password = null)
+        {
+            String email_ = "";
+            String pass_ = "";
+
+            if (email != null)
+            {
+                email_ = email;
+            }
+            else
+            {
+                email_ = "Dolg0ff@mail.ru";
+            }
+
+            if (password != null)
+            {
+                pass_ = password;
+            }
+            else
+            {
+                pass_ = "Qwerty1_";
+            }
+
+            string[] roleNames = { "Admin", "Admin", "Editor", "Customer" };
+            IdentityResult roleResult;
+            foreach (var roleName in roleNames)
+            {
+                // creating the roles and seeding them to the database
+                var roleExist = RoleManager.RoleExistsAsync(roleName).Result;
+                if (!roleExist)
+                {
+                    roleResult = RoleManager.CreateAsync(new IdentityRole(roleName)).Result;
+                }
+            }
+
+            ApplicationUser user = UserManager.FindByEmailAsync(email_).Result;
+            if (user == null)
+            {
+                ApplicationUser u = new ApplicationUser();
+                u.Email = email_;
+                u.UserName = email_;
+                u.LockoutEnabled = true;
+                IdentityResult r = UserManager.CreateAsync(u, pass_).Result;
+            }
+
+            ApplicationUser nu = UserManager.FindByEmailAsync(email_).Result;
+
+            if (nu != null)
+            {
+                IdentityResult rr = UserManager.AddToRoleAsync(nu, "Admin").Result;
+            }
         }
     }
 }
