@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdminUser1.Classes;
 using AdminUser1.Data;
 using AdminUser1.Models;
 using AdminUser1.Views.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TGRSite.Classes;
 
 namespace AdminUser1.Controllers
 {
+    //[Authorize(Roles = "Admin")]
+    [Auth(roles: "Admin")]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _um;
+        private readonly UserManager<ApplicationUser> _um;
         private readonly RoleManager<IdentityRole> _rm;
 
-        public UserController(ApplicationDbContext context, UserManager<IdentityUser> um, RoleManager<IdentityRole> rm)
+        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> um, RoleManager<IdentityRole> rm)
         {
             _context = context;
             _um = um;
@@ -41,7 +46,7 @@ namespace AdminUser1.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = new IdentityUser { Email = model.Email, UserName = model.Email };
+                ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email };
                 var result = await _um.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -61,7 +66,7 @@ namespace AdminUser1.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(string id)
         {
-            IdentityUser user = await _um.FindByIdAsync(id);
+            ApplicationUser user = await _um.FindByIdAsync(id);
             if (user != null)
             {
                 IdentityResult result = await _um.DeleteAsync(user);
@@ -71,7 +76,7 @@ namespace AdminUser1.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            IdentityUser user = await _um.FindByIdAsync(id);
+            ApplicationUser user = await _um.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -85,7 +90,7 @@ namespace AdminUser1.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await _um.FindByIdAsync(model.Id);
+                ApplicationUser user = await _um.FindByIdAsync(model.Id);
                 if (user != null)
                 {
                     user.Email = model.Email;

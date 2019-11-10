@@ -4,18 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using AdminUser1.Data;
 using AdminUser1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TGRSite.Classes;
 
 namespace AdminUser1.Controllers
 {
+    //[Authorize(Roles = "Admin")]
+    [Auth(roles: "Admin")]
     public class RoleController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly RoleManager<IdentityRole> _rm;
 
-        public RoleController(ApplicationDbContext context, UserManager<IdentityUser> um, RoleManager<IdentityRole> rm)
+        public RoleController(ApplicationDbContext context, RoleManager<IdentityRole> rm)
         {
             _context = context;
             _rm = rm;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AdminUser1.Classes;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdminUser1.Models
 {
-    public class ApplicationUserModel : IdentityUser
+    public class ApplicationUserModel : ApplicationUser
     {
         public List<IdentityRole> Roles { get; set; }
         public List<IdentityRole> AvailableRoles { get; set; }

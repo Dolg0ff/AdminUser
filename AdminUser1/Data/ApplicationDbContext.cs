@@ -7,21 +7,53 @@ using AdminUser1.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Linq;
+using AdminUser1.Classes;
 
 namespace AdminUser1.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        public async Task<Dictionary<string, ApplicationUserModel>> GetUsersAndRoles(UserManager<IdentityUser> _um, RoleManager<IdentityRole> _rm)
+        public bool IsInRole(IdentityUser user, String[] roles)
         {
-            Dictionary<string, IdentityUser> uls = _um.Users.ToDictionary(x => x.Id);
+            bool result = roles.Any(x =>
+            {
+                IQueryable<IdentityUserRole<String>> foundroles = this.UserRoles.Where(xx => xx.UserId == user.Id);
+                List<RoleUserResult> temp =
+                foundroles.Join(
+                    this.Roles,
+                    y => y.RoleId,
+                    z => z.Id,
+                    (r, ru) =>
+                    new RoleUserResult
+                    {
+                        RoleId = r.RoleId,
+                        RoleName = ru.Name,
+                        UserEmail = user.Email,
+                        UserId = user.Id
+                    }).Where(zz => zz.RoleName == x).ToList();
+
+                if (temp.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
+            return result;
+        }
+
+        public async Task<Dictionary<string, ApplicationUserModel>> GetUsersAndRoles(UserManager<ApplicationUser> _um, RoleManager<IdentityRole> _rm)
+        {
+            Dictionary<string, ApplicationUser> uls = _um.Users.ToDictionary(x => x.Id);
             Dictionary<String, ApplicationUserModel> nusers = new Dictionary<string, ApplicationUserModel>();
-            foreach (KeyValuePair<string, IdentityUser> kuser in uls)
+            foreach (KeyValuePair<string, ApplicationUser> kuser in uls)
             {
                 ApplicationUserModel user = new ApplicationUserModel(kuser.Value);               
                 user.Roles = await GetUserRoles(_um, user);
@@ -36,7 +68,7 @@ namespace AdminUser1.Data
             return user;
         }
 
-        public async Task<ApplicationUserModel> GetUserWithRoles(string id, UserManager<IdentityUser> _um)
+        public async Task<ApplicationUserModel> GetUserWithRoles(string id, UserManager<ApplicationUser> _um)
          {
             ApplicationUserModel user = new ApplicationUserModel(this.Users.Where(c => c.Id == id).Single());
             user.Roles = await GetUserRoles(_um, user);
@@ -44,7 +76,7 @@ namespace AdminUser1.Data
             return user;
         }
 
-        public async Task<List<IdentityRole>> GetUserRoles(UserManager<IdentityUser> _um, ApplicationUserModel user)
+        public async Task<List<IdentityRole>> GetUserRoles(UserManager<ApplicationUser> _um, ApplicationUserModel user)
         {
             IList<String> roles = await _um.GetRolesAsync(user);
             List<IdentityRole> uRoles = new List<IdentityRole>();
@@ -69,5 +101,12 @@ namespace AdminUser1.Data
             this.UserRoles.Remove(irl);
             return await this.SaveChangesAsync();
         }
+    }
+    public class RoleUserResult
+    {
+        public String UserId { get; set; }
+        public String RoleId { get; set; }
+        public String RoleName { get; set; }
+        public String UserEmail { get; set; }
     }
 }
