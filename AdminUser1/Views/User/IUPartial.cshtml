@@ -4,10 +4,13 @@
     <td>@Model.UserName</td>
     <td>@Model.Email</td>
     <td>
-        <form asp-action="Delete" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#dyncontainer">
+        <form asp-action="Delete" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#dyncont">
             <input type="hidden" name="id" value="@Model.Id" />
-            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Изменить</a>
-            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Удалить</a>
+            <input class="btn btn-sm btn-danger" type="submit" value="Удалить">
+        </form>
+        <form asp-action="Edit" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#dyncont">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input class="btn btn-sm btn-primary" type="submit" value="Изменить">
         </form>
     </td>
 </tr>

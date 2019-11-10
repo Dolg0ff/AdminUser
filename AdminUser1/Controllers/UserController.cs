@@ -39,7 +39,7 @@ namespace AdminUser1.Controllers
             return PartialView(m);
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create() => PartialView();
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
@@ -71,7 +71,7 @@ namespace AdminUser1.Controllers
             {
                 IdentityResult result = await _um.DeleteAsync(user);
             }
-            return RedirectToAction("Index");
+            return PartialView();
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -82,7 +82,7 @@ namespace AdminUser1.Controllers
                 return NotFound();
             }
             EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email };
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]

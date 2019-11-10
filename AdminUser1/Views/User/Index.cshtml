@@ -3,8 +3,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Управление пользователями</h1>
-
 <style>
     .form-control {
         display: inline-block;
@@ -12,10 +10,13 @@
     }
 </style>
 
-<hr />
-<a asp-action="Create">Добавить пользователя</a>
 <div class="row">
-    <div class="col-md-4" id="dyncontainer">
+    <div class="col-md-4" id="dyncont">
+        <h1>Управление пользователями</h1>
+        <form asp-action="Create" method="get" data-ajax="true" data-ajax-method="get" data-ajax-update="#dyncont">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input class="btn btn-sm btn-primary" type="submit" value="Добавить пользователя">
+        </form>
         <table>
             <thead>
                 <tr>
@@ -41,5 +42,3 @@
 @section UA {
     <script type="text/javascript" src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
 }
-
-
